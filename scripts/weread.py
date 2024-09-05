@@ -215,8 +215,11 @@ def append_blocks(id, contents):
         elif "reviewId" in value:
             newPage = notion_helper.insert_review(id, value)
             if newPage != None:
-                notion_helper.append_blocks(newPage.get("id"),
+                resp = notion_helper.append_blocks(newPage.get("id"),
                                             children=[get_image(value.get("pencilNote").get("imageUrl"))])
+                print(f"正在插入第{index + 1}条笔记，共{len(l)}条",resp)
+                notion_helper.append_blocks(newPage.get("id"),
+                                            children=[get_quote(value.get("pencilNote").get("imageUrl"))])
         else:
             notion_helper.insert_chapter(id, value)
 
