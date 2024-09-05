@@ -284,7 +284,7 @@ class NotionHelper:
         time.sleep(0.1)
         icon = get_icon(TAG_ICON_URL)
         properties = {
-            "Name": get_title(review.get("content", "")),
+            "Name": get_title(review.get("content", "手写笔记")),
             "bookId": get_rich_text(review.get("bookId")),
             "reviewId": get_rich_text(review.get("reviewId")),
             "blockId": get_rich_text(review.get("blockId")),
