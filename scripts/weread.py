@@ -44,7 +44,7 @@ def get_bookmark_list(page_id, bookId):
     return bookmarks
 
 
-def get_review_list(page_id,bookId):
+def get_review_list(page_id, bookId):
     """获取笔记"""
     filter = {
         "and": [
@@ -209,11 +209,14 @@ def append_blocks(id, contents):
     if len(blocks) > 0:
         l.extend(append_blocks_to_notion(id, blocks, before_block_id, sub_contents))
     for index, value in enumerate(l):
-        print(f"正在插入第{index+1}条笔记，共{len(l)}条")
+        print(f"正在插入第{index + 1}条笔记，共{len(l)}条")
         if "bookmarkId" in value:
             notion_helper.insert_bookmark(id, value)
         elif "reviewId" in value:
-            notion_helper.insert_review(id, value)
+            newPage = notion_helper.insert_review(id, value)
+            if newPage != None:
+                notion_helper.append_blocks(newPage.get("id"),
+                                            children=[get_quote(value.get("pencilNote").get("imageUrl"))])
         else:
             notion_helper.insert_chapter(id, value)
 
@@ -221,14 +224,14 @@ def append_blocks(id, contents):
 def content_to_block(content):
     if "bookmarkId" in content:
         return get_callout(
-            content.get("markText",""),
+            content.get("markText", ""),
             content.get("style"),
             content.get("colorStyle"),
             content.get("reviewId"),
         )
     elif "reviewId" in content:
         return get_callout(
-            content.get("content",""),
+            content.get("content", ""),
             content.get("style"),
             content.get("colorStyle"),
             content.get("reviewId"),

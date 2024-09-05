@@ -304,7 +304,7 @@ class NotionHelper:
             properties["Date"] = get_date(create_time.strftime("%Y-%m-%d %H:%M:%S"))
             self.get_date_relation(properties, create_time)
         parent = {"database_id": self.review_database_id, "type": "database_id"}
-        self.create_page(parent, properties, icon)
+        return self.create_page(parent, properties, icon)
 
     def insert_chapter(self, id, chapter):
         time.sleep(0.1)
