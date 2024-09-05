@@ -283,8 +283,11 @@ class NotionHelper:
     def insert_review(self, id, review):
         time.sleep(0.1)
         icon = get_icon(TAG_ICON_URL)
+        name = review.get("content", "手写笔记")
+        if not name:
+            name = "手写笔记"
         properties = {
-            "Name": get_title(review.get("content", "手写笔记")),
+            "Name": get_title(name),
             "bookId": get_rich_text(review.get("bookId")),
             "reviewId": get_rich_text(review.get("reviewId")),
             "blockId": get_rich_text(review.get("blockId")),
