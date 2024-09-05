@@ -120,7 +120,8 @@ def get_image(content):
         "image": {
             "type": "external",
             "external": {
-                "url": content[:MAX_LENGTH]},
+                "url": content
+            }
         }
     }
 
@@ -317,7 +318,7 @@ def calculate_book_str_id(book_id):
             result += "g"
 
     if len(result) < 20:
-        result += digest[0 : 20 - len(result)]
+        result += digest[0: 20 - len(result)]
     md5 = hashlib.md5()
     md5.update(result.encode("utf-8"))
     result += md5.hexdigest()[0:3]
@@ -329,7 +330,7 @@ def transform_id(book_id):
     if re.match("^\d*$", book_id):
         ary = []
         for i in range(0, id_length, 9):
-            ary.append(format(int(book_id[i : min(i + 9, id_length)]), "x"))
+            ary.append(format(int(book_id[i: min(i + 9, id_length)]), "x"))
         return "3", ary
 
     result = ""
