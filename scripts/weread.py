@@ -12,7 +12,7 @@ from utils import (
     get_number_from_result,
     get_quote,
     get_rich_text_from_result,
-    get_table_of_contents,
+    get_table_of_contents, get_image,
 )
 
 
@@ -216,7 +216,7 @@ def append_blocks(id, contents):
             newPage = notion_helper.insert_review(id, value)
             if newPage != None:
                 notion_helper.append_blocks(newPage.get("id"),
-                                            children=[get_quote(value.get("pencilNote").get("imageUrl"))])
+                                            children=[get_image(value.get("pencilNote").get("imageUrl"))])
         else:
             notion_helper.insert_chapter(id, value)
 
